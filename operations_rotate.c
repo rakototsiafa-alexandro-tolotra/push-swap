@@ -3,48 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   operations_rotate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: herasoan <herasoan@student.42antananari    +#+  +:+       +#+        */
+/*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:08:04 by herasoan          #+#    #+#             */
-/*   Updated: 2026/03/18 10:08:05 by herasoan         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:14:50 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void rotate(t_list **stack)
+void	rotate(t_node **stack)
 {
-    t_list *first;
-    t_list *last;
+	t_node	*first;
+	t_node	*last;
 
-    if (!stack || !*stack || !(*stack)->next)
-        return;
-    first = *stack;
-    last = *stack;
-
-    while (last->next != NULL) // Trouve le dernier noeud
-        last = last->next;
-
-    *stack = first->next;      // Le 2ème devient le 1er
-    first->next = NULL;        // Le 1er perd sa suite
-    last->next = first;        // L'ancien dernier pointe vers l'ancien 1er
+	if (!stack || !*stack || !(*stack)->next)
+		return ;
+	first = *stack;
+	last = *stack;
+	while (last->next != NULL)
+		last = last->next;
+	*stack = first->next;
+	first->next = NULL;
+	last->next = first;
 }
 
-void ra(t_list **a)
+void	ra(t_node **a, t_opts *opts)
 {
-    rotate(a);
-    ft_printf("ra\n");
+	rotate(a);
+	ft_printf("ra\n");
+	if (opts && opts->bench)
+		opts->ops.ra++;
 }
 
-void rb(t_list **b)
+void	rb(t_node **b, t_opts *opts)
 {
-    rotate(b);
-    ft_printf("rb\n");
+	rotate(b);
+	ft_printf("rb\n");
+	if (opts && opts->bench)
+		opts->ops.rb++;
 }
 
-void rr(t_list **a, t_list **b)
+void	rr(t_node **a, t_node **b, t_opts *opts)
 {
-    rotate(a);
-    rotate(b);
-    ft_printf("rr\n");
+	rotate(a);
+	rotate(b);
+	ft_printf("rr\n");
+	if (opts && opts->bench)
+		opts->ops.rr++;
 }

@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 11:16:29 by arakotot          #+#    #+#             */
-/*   Updated: 2026/03/05 10:03:09 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/03/18 13:55:07 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 # include <stdarg.h>
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 
 int	ft_printf(const char *format, ...) __attribute__((format(printf, 1, 2)));
 int	ft_putchar(char c);

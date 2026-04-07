@@ -2,77 +2,82 @@
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: herasoan <herasoan@student.42antananari    +#+  +:+       +#+         #
+#                                                     :+:      :+:    :+:    #
+#    By: arakotot <arakotot@student.42antananari      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/18 10:07:48 by herasoan          #+#    #+#              #
-#    Updated: 2026/03/18 10:07:49 by herasoan         ###   ########.fr        #
+#    Updated: 2026/03/18 21:20:27 by arakotot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Nom de l'exécutable
 NAME        = push_swap
 
-# Compilateur et flags
+
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
 
-# Chemins des librairies
+
 LIBFT_DIR   = libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 
 PRINTF_DIR  = ft_printf
 PRINTF      = $(PRINTF_DIR)/libftprintf.a
 
-# Dossiers
-INC_DIR     = inc
-SRC_DIR     = src
-
-# Fichiers sources (à adapter au fur et à mesure que tu crées tes fichiers)
-SRCS        = $(SRC_DIR)/main.c \
-              $(SRC_DIR)/operations_push.c \
-              $(SRC_DIR)/operations_swap.c \
-              $(SRC_DIR)/operations_rotate.c \
-              $(SRC_DIR)/operations_rev_rotate.c
+# Fichiers sources (Tous à la racine selon ta capture d'écran)
+SRCS        = main.c \
+			  options.c \
+              parsing.c parsing_utils.c \
+              error_manager.c \
+			  bench.c \
+			  bench_utils.c \
+              stack_init.c stack_utils.c \
+              disorder.c \
+              operations_push.c operations_swap.c \
+              operations_rotate.c operations_rev_rotate.c \
+			  sort_simple.c sort_simple_utils.c sort_medium.c \
+			  sort_medium_utils.c sort_complex.c sort_adaptive.c \
 
 OBJS        = $(SRCS:.c=.o)
 
-# Includes et flags de linkage
-INCLUDES    = -I $(INC_DIR) -I $(LIBFT_DIR) -I $(PRINTF_DIR)
-LFLAGS      = -L $(LIBFT_DIR) -lft -L $(PRINTF_DIR) -lftprintf
+# Includes (Le header est à la racine '.')
+INCLUDES    = -I . -I $(LIBFT_DIR) -I $(PRINTF_DIR)
 
-# Règles
+# Linkage (Ordre important : printf dépend souvent de libft)
+LFLAGS      = -L $(PRINTF_DIR) -lftprintf -L $(LIBFT_DIR) -lft
+
+# Couleurs pour le terminal
+GREEN       = \033[0;32m
+RED         = \033[0;31m
+RESET       = \033[0m
+
+# Règles principales
 all: $(LIBFT) $(PRINTF) $(NAME)
 
-# Compilation de la libft
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
-# Compilation de ft_printf
 $(PRINTF):
-	@$(MAKE) -C $(PRINTF_DIR)
+	@make -C $(PRINTF_DIR)
 
-# Compilation de l'exécutable
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
+	@echo "$(GREEN)Compilation de $(NAME) terminée !$(RESET)"
 
-# Compilation des objets (.c en .o)
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Nettoyage des objets
 clean:
-	rm -f $(OBJS)
-	@$(MAKE) clean -C $(LIBFT_DIR)
-	@$(MAKE) clean -C $(PRINTF_DIR)
+	@rm -f $(OBJS)
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(PRINTF_DIR)
+	@echo "$(RED)Objets supprimés.$(RESET)"
 
-# Nettoyage complet
 fclean: clean
-	rm -f $(NAME)
-	@$(MAKE) fclean -C $(LIBFT_DIR)
-	@$(MAKE) fclean -C $(PRINTF_DIR)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(PRINTF_DIR)
+	@echo "$(RED)Exécutable et librairies supprimés.$(RESET)"
 
-# Recompilation complète
 re: fclean all
 
 .PHONY: all clean fclean re

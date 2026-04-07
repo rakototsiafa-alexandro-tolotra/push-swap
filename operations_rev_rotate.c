@@ -3,51 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   operations_rev_rotate.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: herasoan <herasoan@student.42antananari    +#+  +:+       +#+        */
+/*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:08:01 by herasoan          #+#    #+#             */
-/*   Updated: 2026/03/18 10:08:01 by herasoan         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:17:02 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void rev_rotate(t_list **stack)
+void	rev_rotate(t_node **stack)
 {
-    t_list *prev;
-    t_list *last;
+	t_node	*prev;
+	t_node	*last;
 
-    if (!stack || !*stack || !(*stack)->next)
-        return;
-    prev = NULL;
-    last = *stack;
-
-    while (last->next != NULL) // On descend jusqu'à l'avant-dernier et dernier
-    {
-        prev = last;
-        last = last->next;
-    }
-
-    prev->next = NULL;         // L'avant-dernier devient le dernier
-    last->next = *stack;       // Le dernier pointe vers le 1er actuel
-    *stack = last;             // Le dernier devient officiellement le 1er
+	if (!stack || !*stack || !(*stack)->next)
+		return ;
+	prev = NULL;
+	last = *stack;
+	while (last->next != NULL)
+	{
+		prev = last;
+		last = last->next;
+	}
+	prev->next = NULL;
+	last->next = *stack;
+	*stack = last;
 }
 
-void rra(t_list **a)
+void	rra(t_node **a, t_opts *opts)
 {
-    rev_rotate(a);
-    ft_printf("rra\n");
+	rev_rotate(a);
+	ft_printf("rra\n");
+	if (opts && opts->bench)
+		opts->ops.rra++;
 }
 
-void rrb(t_list **b)
+void	rrb(t_node **b, t_opts *opts)
 {
-    rev_rotate(b);
-    ft_printf("rrb\n");
+	rev_rotate(b);
+	ft_printf("rrb\n");
+	if (opts && opts->bench)
+		opts->ops.rrb++;
 }
 
-void rrr(t_list **a, t_list **b)
+void	rrr(t_node **a, t_node **b, t_opts *opts)
 {
-    rev_rotate(a);
-    rev_rotate(b);
-    ft_printf("rrr\n");
+	rev_rotate(a);
+	rev_rotate(b);
+	ft_printf("rrr\n");
+	if (opts && opts->bench)
+		opts->ops.rrr++;
 }

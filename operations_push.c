@@ -3,36 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   operations_push.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: herasoan <herasoan@student.42antananari    +#+  +:+       +#+        */
+/*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:07:55 by herasoan          #+#    #+#             */
-/*   Updated: 2026/03/18 10:07:57 by herasoan         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:10:45 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void push(t_list **src, t_list **dest)
+void	push(t_node **src, t_node **dest)
 {
-    t_list *temp;
+	t_node	*temp;
 
-    if (!src || !*src)
-        return;
-    temp = *src;
-    *src = (*src)->next; // Détache le premier noeud de src
-
-    temp->next = *dest;  // Attache ce noeud au-dessus de dest
-    *dest = temp;        // Met à jour le pointeur dest
+	if (!src || !*src)
+		return ;
+	temp = *src;
+	*src = (*src)->next;
+	temp->next = *dest;
+	*dest = temp;
 }
 
-void pa(t_list **b, t_list **a)
+void	pa(t_node **b, t_node **a, t_opts *opts)
 {
-    push(b, a);
-    ft_printf("pa\n");
+	push(b, a);
+	ft_printf("pa\n");
+	if (opts && opts->bench)
+		opts->ops.pa++;
 }
 
-void pb(t_list **a, t_list **b)
+void	pb(t_node **a, t_node **b, t_opts *opts)
 {
-    push(a, b);
-    ft_printf("pb\n");
+	push(a, b);
+	ft_printf("pb\n");
+	if (opts && opts->bench)
+		opts->ops.pb++;
 }

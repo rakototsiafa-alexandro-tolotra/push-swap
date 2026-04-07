@@ -3,55 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: herasoan <herasoan@student.42antananari    +#+  +:+       +#+        */
+/*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:07:38 by herasoan          #+#    #+#             */
-/*   Updated: 2026/03/18 10:07:42 by herasoan         ###   ########.fr       */
+/*   Updated: 2026/04/04 06:10:05 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Libère chaque noeud de la pile
-void free_stack(t_list **stack)
+void	free_stack(t_node **stack)
 {
-    t_list *tmp;
+	t_node	*tmp;
 
-    if (!stack || !*stack)
-        return;
-    while (*stack)
-    {
-        tmp = (*stack)->next;
-        free(*stack);
-        *stack = tmp;
-    }
-    *stack = NULL;
+	if (!stack || !*stack)
+		return ;
+	while (*stack)
+	{
+		tmp = (*stack)->next;
+		free(*stack);
+		*stack = tmp;
+	}
+	*stack = NULL;
 }
 
-// Libère le tableau 2D créé par ft_split
-void free_matrix(char **matrix)
+void	free_matrix(char **matrix)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!matrix || !*matrix)
-        return;
-    while (matrix[i])
-    {
-        free(matrix[i]);
-        i++;
-    }
-    free(matrix);
+	i = 0;
+	if (!matrix || !*matrix)
+		return ;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
 }
 
-// Nettoie tout et quitte proprement
-void error_exit(t_list **a, char **matrix)
+void	error_exit(t_node **a, char **matrix)
 {
-    if (a && *a)
-        free_stack(a);
-    if (matrix)
-        free_matrix(matrix);
-    // Le sujet exige d'afficher sur la sortie d'erreur (stderr = 2)
-    write(2, "Error\n", 6);
-    exit(1);
+	if (a && *a)
+		free_stack(a);
+	if (matrix)
+		free_matrix(matrix);
+	write(2, "Error\n", 6);
+	exit(1);
 }
