@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:08:30 by herasoan          #+#    #+#             */
-/*   Updated: 2026/04/07 16:57:29 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:56:26 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ typedef struct s_node
 	struct s_node	*next;
 }	t_node;
 
+typedef struct s_stack
+{
+	t_node	**a;
+	t_node	**b;
+}	t_stack;
+
 /* Parsing & Erreurs */
 void	free_stack(t_node **stack);
 void	free_matrix(char **matrix);
@@ -93,10 +99,10 @@ void	index_stack(t_node *stack);
 int		ft_sqrt(int number);
 
 /* Algorithmes de tri */
-void	sort_simple(t_node **a, t_node **b, t_opts *opts);
-void	sort_medium(t_node **a, t_node **b, t_opts *opts);
-void	sort_complex(t_node **a, t_node **b, t_opts *opts);
-void	sort_adaptive(t_node **a, t_node **b, t_opts *opts);
+void	sort_simple(t_stack *s, t_opts *opts);
+void	sort_medium(t_stack *s, t_opts *opts);
+void	sort_complex(t_stack *s, t_opts *opts);
+void	sort_adaptive(t_stack *s, t_opts *opts);
 
 /* Mesure du désordre */
 double	compute_disorder(t_node *stack_a);
@@ -109,11 +115,12 @@ void	rotate_min_to_top(t_node **a, t_opts *opts, int size);
 void	insert_from_b(t_node **a, t_node **b, t_opts *opts);
 
 /* sort_medium_utils */
-void	push_chunks_to_b(t_node **a, t_node **b,
-			t_opts *opts, int size, int chunk_size);
+void	push_chunks_to_b(t_stack *s, t_opts *opts, int size, int chunk_size);
 void	push_max_to_a(t_node **a, t_node **b, t_opts *opts);
 
 /* options */
+int		is_strategy_flags(char *arg);
+void	apply_flag(char *arg, t_opts *opts);
 void	parse_flags(int *argc, char ***argv, t_opts *opts);
 
 /* bench */

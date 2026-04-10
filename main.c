@@ -34,16 +34,16 @@ static int	is_empty_input(int argc, char **argv)
 	return (0);
 }
 
-static void	run_strategy(t_node **a, t_node **b, t_opts *opts)
+static void	run_strategy(t_stack *s, t_opts *opts)
 {
 	if (opts->strategy == STRATEGY_SIMPLE)
-		sort_simple(a, b, opts);
+		sort_simple(s, opts);
 	else if (opts->strategy == STRATEGY_MEDIUM)
-		sort_medium(a, b, opts);
+		sort_medium(s, opts);
 	else if (opts->strategy == STRATEGY_COMPLEX)
-		sort_complex(a, b, opts);
+		sort_complex(s, opts);
 	else
-		sort_adaptive(a, b, opts);
+		sort_adaptive(s, opts);
 }
 
 int	main(int argc, char **argv)
@@ -51,6 +51,7 @@ int	main(int argc, char **argv)
 	t_node	*stack_a;
 	t_node	*stack_b;
 	t_opts	opts;
+	t_stack	s;
 	double	disorder;
 
 	if (is_empty_input(argc, argv))
@@ -62,9 +63,11 @@ int	main(int argc, char **argv)
 	parse_arguments(&stack_a, &argc, &argv, &opts);
 	if (!stack_a)
 		return (0);
+	s.a = &stack_a;
+	s.b = &stack_b;
 	disorder = compute_disorder(stack_a);
 	if (!is_sorted(stack_a))
-		run_strategy(&stack_a, &stack_b, &opts);
+		run_strategy(&s, &opts);
 	if (opts.bench)
 		print_bench(&opts, disorder);
 	free_stack(&stack_a);

@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:08:27 by herasoan          #+#    #+#             */
-/*   Updated: 2026/04/07 17:01:41 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:08:22 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ static int	is_blank_string(char *str)
 	return (1);
 }
 
-static void	validate_token(t_node **a, char **matrix, int i)
+static void	validate_token(t_node **a, char **matrix, int i, t_opts *opts)
 {
 	long	nb;
 
+	if (is_strategy_flags(matrix[i]))
+	{
+		apply_flag(matrix[i], opts);
+		return ;
+	}
 	if (!is_numeric(matrix[i]))
 		error_exit(a, matrix);
 	nb = ft_atol(matrix[i]);
@@ -40,19 +45,19 @@ static void	validate_token(t_node **a, char **matrix, int i)
 	append_node(a, (int)nb);
 }
 
-static void	process_strings(t_node **a, char **matrix)
+static void	process_strings(t_node **a, char **matrix, t_opts *opts)
 {
 	int	i;
 
 	i = 0;
 	while (matrix[i])
 	{
-		validate_token(a, matrix, i);
+		validate_token(a, matrix, i, opts);
 		i++;
 	}
 }
 
-static void	process_arg(t_node **a, char *arg)
+static void	process_arg(t_node **a, char *arg, t_opts *opts)
 {
 	char	**matrix;
 
@@ -66,7 +71,7 @@ static void	process_arg(t_node **a, char *arg)
 		free_matrix(matrix);
 		return ;
 	}
-	process_strings(a, matrix);
+	process_strings(a, matrix, opts);
 	free_matrix(matrix);
 }
 
@@ -80,7 +85,7 @@ void	parse_arguments(t_node **a, int *argc, char ***argv, t_opts *opts)
 	i = 1;
 	while (i < *argc)
 	{
-		process_arg(a, (*argv)[i]);
+		process_arg(a, (*argv)[i], opts);
 		i++;
 	}
 }

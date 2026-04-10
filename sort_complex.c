@@ -22,7 +22,7 @@ static int	get_max_bits(int max_index)
 	return (max_bits);
 }
 
-static void	radix_pass(t_node **a, t_node **b, t_opts *opts, int size, int bit)
+static void	radix_pass(t_stack *s, t_opts *opts, int size, int bit)
 {
 	int	i;
 	int	bit_mask;
@@ -33,11 +33,11 @@ static void	radix_pass(t_node **a, t_node **b, t_opts *opts, int size, int bit)
 	pushed_count = 0;
 	while (i < size)
 	{
-		if ((*a)->index & bit_mask)
-			ra(a, opts);
+		if ((*s->a)->index & bit_mask)
+			ra(s->a, opts);
 		else
 		{
-			pb(a, b, opts);
+			pb(s->a, s->b, opts);
 			pushed_count++;
 		}
 		i++;
@@ -45,24 +45,24 @@ static void	radix_pass(t_node **a, t_node **b, t_opts *opts, int size, int bit)
 	i = 0;
 	while (i < pushed_count)
 	{
-		pa(b, a, opts);
+		pa(s->b, s->a, opts);
 		i++;
 	}
 }
 
-void	sort_complex(t_node **a, t_node **b, t_opts *opts)
+void	sort_complex(t_stack *s, t_opts *opts)
 {
 	int	size;
 	int	max_bits;
 	int	i;
 
-	index_stack(*a);
-	size = get_stack_size(*a);
+	index_stack(*s->a);
+	size = get_stack_size(*s->a);
 	max_bits = get_max_bits(size - 1);
 	i = 0;
 	while (i < max_bits)
 	{
-		radix_pass(a, b, opts, size, i);
+		radix_pass(s, opts, size, i);
 		i++;
 	}
 }
