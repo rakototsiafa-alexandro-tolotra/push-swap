@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:07:30 by herasoan          #+#    #+#             */
-/*   Updated: 2026/04/15 18:50:02 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/15 22:59:56 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,20 @@ double	compute_disorder(t_node *stack_a)
 
 void	print_disorder(double disorder)
 {
-	char	buf[64];
+	char	buf[128];
 	int		i;
 	int		pct_int;
 	int		pct_dec;
 
 	i = 0;
-	i += ft_strlcpy(buf + i, "[bench] disorder: ", 64 - i);
+	i += ft_strlcpy(buf + i, "[bench] disorder: ", 128 - i);
 	pct_int = (int)disorder;
-	if (pct_int >= 10)
-		buf[i++] = '0' + (pct_int / 10);
-	buf[i++] = '0' + (pct_int % 10);
-	pct_dec = (int)((disorder - pct_int) * 100);
+	if (pct_int / 100)
+		buf[i++] = '0' + pct_int / 100;
+	if (pct_int / 10)
+		buf[i++] = '0' + pct_int / 10 % 10;
+	buf[i++] = '0' + pct_int % 10;
+	pct_dec = (int)((disorder - (double)pct_int) * 100 + 0.5);
 	buf[i++] = '.';
 	buf[i++] = '0' + (pct_dec / 10);
 	buf[i++] = '0' + (pct_dec % 10);
@@ -62,3 +64,4 @@ void	print_disorder(double disorder)
 	buf[i++] = '\n';
 	write(2, buf, i);
 }
+

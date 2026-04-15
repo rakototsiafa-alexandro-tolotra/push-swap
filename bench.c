@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 15:20:19 by arakotot          #+#    #+#             */
-/*   Updated: 2026/04/15 20:00:36 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/16 01:23:47 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,35 @@ static void	print_ops_detail(t_opts *opts)
 	write_op_line("rrr: ", opts->ops.rrr);
 }
 
-void	print_bench(t_opts *opts, double disorder)
+static void	print_strategy(t_opts *opts, double disorder)
 {
 	char	*name;
 	char	*complexity;
+	char	*comp;
 
 	get_strategy_info(opts->strategy, &name, &complexity);
+	if (opts->strategy == STRATEGY_ADAPTIVE)
+	{
+		if (disorder < 20.0)
+			comp = "O(n^2)";
+		else if (disorder < 50.0)
+			comp = "O(n√n)";
+		else
+			comp = "O(n log n)";
+	}
+	else
+		comp = complexity;
 	print_disorder(disorder);
 	write(2, "[bench] strategy: ", 18);
 	write(2, name, ft_strlen(name));
 	write(2, " ", 1);
-	write(2, complexity, ft_strlen(complexity));
+	write(2, comp, ft_strlen(comp));
 	write(2, "\n", 1);
+}
+
+void	print_bench(t_opts *opts, double disorder)
+{
+	print_strategy(opts, disorder);
 	write(2, "[bench] total_ops: ", 19);
 	write_int_stderr(total_ops(&opts->ops));
 	write(2, "\n", 1);
