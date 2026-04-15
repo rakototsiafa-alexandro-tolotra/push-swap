@@ -14,7 +14,7 @@ NAME        = push_swap
 
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -g
+CFLAGS      = -Wall -Wextra -Werror
 
 
 LIBFT_DIR   = libft
@@ -39,18 +39,14 @@ SRCS        = main.c \
 
 OBJS        = $(SRCS:.c=.o)
 
-# Includes (Le header est à la racine '.')
 INCLUDES    = -I . -I $(LIBFT_DIR) -I $(PRINTF_DIR)
 
-# Linkage (Ordre important : printf dépend souvent de libft)
 LFLAGS      = -L $(PRINTF_DIR) -lftprintf -L $(LIBFT_DIR) -lft
 
-# Couleurs pour le terminal
 GREEN       = \033[0;32m
 RED         = \033[0;31m
 RESET       = \033[0m
 
-# Règles principales
 all: $(LIBFT) $(PRINTF) $(NAME)
 
 $(LIBFT):
