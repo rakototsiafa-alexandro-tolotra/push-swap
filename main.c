@@ -30,7 +30,7 @@ static int	is_empty_input(int argc, char **argv)
 	if (argc == 2)
 		write(2, "Error\n", 6);
 	if (argc == 2 && argv[1][0] == '\0')
-		return (1);`
+		return (1);
 	return (0);
 }
 
