@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:07:30 by herasoan          #+#    #+#             */
-/*   Updated: 2026/04/15 22:59:56 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/23 14:30:35 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,3 @@ void	print_disorder(double disorder)
 	buf[i++] = '\n';
 	write(2, buf, i);
 }
-
