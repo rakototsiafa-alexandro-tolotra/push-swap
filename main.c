@@ -1,14 +1,14 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 20:55:56 by arakotot          #+#    #+#             */
-/*   Updated: 2026/03/23 19:00:00 by arakotot         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+ /*                                                                            */
+ /*                                                        :::      ::::::::   */
+ /*   main.c                                             :+:      :+:    :+:   */
+ /*                                                    +:+ +:+         +:+     */
+ /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2026/03/18 20:55:56 by arakotot          #+#    #+#             */
+ /*   Updated: 2026/03/23 19:00:00 by arakotot         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -27,10 +27,11 @@ static int	is_sorted(t_node *stack)
 
 static int	is_empty_input(int argc, char **argv)
 {
-	if (argc == 2)
-		write(2, "Error\n", 6);
 	if (argc == 2 && argv[1][0] == '\0')
+	{
+		write(2, "Error\n", 6);
 		return (1);
+	}
 	return (0);
 }
 
@@ -74,3 +75,4 @@ int	main(int argc, char **argv)
 	free_stack(&stack_b);
 	return (0);
 }
+
