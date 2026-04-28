@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 school program by arakotot.*
+*This project has been created as part of the 42 school program by herasoan.arakotot.*
 
 ## Descriptions
 
@@ -15,6 +15,88 @@
 - Benchmarking and disorder metrics.
 - Strict 42 Norm compliance (no leaks, efficient code).
 - Custom libft and ft_printf integration.
+
+### Available Operations
+
+The project implements the following stack operations. Each operation is printed to standard output when executed.
+
+#### Swap Operations
+
+- **sa** — *Swap A*: Swaps the first two elements at the top of stack `a`. Does nothing if there is only one or no elements.
+- **sb** — *Swap B*: Swaps the first two elements at the top of stack `b`. Does nothing if there is only one or no elements.
+- **ss** — *Swap Both*: Performs `sa` and `sb` simultaneously.
+
+#### Push Operations
+
+- **pa** — *Push A*: Takes the first element from the top of stack `b` and pushes it onto stack `a`. Does nothing if `b` is empty.
+- **pb** — *Push B*: Takes the first element from the top of stack `a` and pushes it onto stack `b`. Does nothing if `a` is empty.
+
+#### Rotate Operations
+
+- **ra** — *Rotate A*: Shifts all elements of stack `a` up by one position. The first element becomes the last.
+- **rb** — *Rotate B*: Shifts all elements of stack `b` up by one position. The first element becomes the last.
+- **rr** — *Rotate Both*: Performs `ra` and `rb` simultaneously.
+
+#### Reverse Rotate Operations
+
+- **rra** — *Reverse Rotate A*: Shifts all elements of stack `a` down by one position. The last element becomes the first.
+- **rrb** — *Reverse Rotate B*: Shifts all elements of stack `b` down by one position. The last element becomes the first.
+- **rrr** — *Reverse Rotate Both*: Performs `rra` and `rrb` simultaneously.
+
+#### Example
+
+Sorting the input `3 2 1` with the simple strategy:
+
+```bash
+$ ./push_swap 3 2 1
+sa
+rra
+```
+
+**Explanation:**
+1. Initial stack `a`: `[3, 2, 1]`
+2. `sa` swaps the top two elements → `[2, 3, 1]`
+3. `rra` moves the last element to the top → `[1, 2, 3]`
+4. Stack `a` is now sorted in ascending order.
+
+### Parsing
+
+The parsing module converts command-line arguments into a linked-list stack `a` with strict validation:
+
+1. **Flag extraction:** Strategy flags (`--simple`, `--medium`, `--complex`, `--bench`) are parsed first and removed from the argument list so they are not interpreted as numbers.
+2. **String splitting:** Each argument string is split on spaces, allowing inputs such as `./push_swap "4 67 3"` or `./push_swap 4 67 3`.
+3. **Blank-string handling:** Empty or whitespace-only strings are silently skipped.
+4. **Numeric validation:** Every token is checked with `is_numeric` to ensure it contains only an optional sign followed by digits. Non-numeric tokens trigger an error.
+5. **Overflow check:** Tokens are converted with a safe `ft_atol` and compared against `INT_MAX` / `INT_MIN`. Out-of-range values trigger an error.
+6. **Duplicate detection:** Before appending a new value, the existing stack is scanned with `check_duplicate`. Duplicates trigger an error.
+7. **Node appending:** Valid integers are appended to stack `a` in the order they appear.
+
+### Error Manager
+
+The error manager centralizes failure handling and memory cleanup to guarantee no leaks and strict 42 Norm compliance:
+
+- **`error_exit`** — The universal error handler. It:
+  - Frees stack `a` if it exists.
+  - Frees any temporary `ft_split` matrix if provided.
+  - Writes `"Error\n"` to standard error (`stderr`).
+  - Exits the program with status `1`.
+- **`free_stack`** — Iterates through the linked list and frees every node, then nullifies the stack pointer.
+- **`free_matrix`** — Frees every string inside a `char **` array and then the array itself.
+
+> **Usage:** Any parsing or validation failure (invalid character, overflow, duplicate, empty input after flags) immediately calls `error_exit`, ensuring the program never continues with malformed data.
+
+### Disorder Metric
+
+The disorder metric quantifies how far stack `a` is from being perfectly sorted in ascending order. It is computed before any sorting begins and is printed when benchmark mode (`--bench`) is active.
+
+- **Formula:** For every pair of elements `(i, j)` where `i` appears before `j` in the stack, if `i > j` it counts as a mistake. The disorder percentage is:
+  ```
+  disorder = (mistakes / total_pairs) × 100
+  ```
+- **Range:** `0 %` (perfectly sorted) to `100 %` (perfectly reverse-sorted).
+- **Output:** Printed to `stderr` in the format `[bench] disorder: XX.XX%`.
+
+> **Purpose:** This metric provides a quick, normalized measure of input chaos independent of stack size, useful for benchmarking and comparing algorithm efficiency across different initial orderings.
 
 ## Instructions
 

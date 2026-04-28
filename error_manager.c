@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:07:38 by herasoan          #+#    #+#             */
-/*   Updated: 2026/04/15 11:39:09 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/28 10:08:56 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_stack(t_node **stack)
 {
 	t_node	*tmp;
 
-	if (!stack || !*stack)
+	if (!stack || !stack[0])
 		return ;
 	while (*stack)
 	{

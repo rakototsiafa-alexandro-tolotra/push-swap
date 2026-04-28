@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:07:30 by herasoan          #+#    #+#             */
-/*   Updated: 2026/04/23 14:30:35 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/28 10:10:27 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	print_disorder(double disorder)
 	i = 0;
 	i += ft_strlcpy(buf + i, "[bench] disorder: ", 128 - i);
 	pct_int = (int)disorder;
-	if (pct_int / 100)
+	if (pct_int >= 100)
 		buf[i++] = '0' + pct_int / 100;
-	if (pct_int / 10)
-		buf[i++] = '0' + pct_int / 10 % 10;
+	if (pct_int >= 10)
+		buf[i++] = '0' + (pct_int / 10) % 10;
 	buf[i++] = '0' + pct_int % 10;
 	pct_dec = (int)((disorder - (double)pct_int) * 100 + 0.5);
 	buf[i++] = '.';

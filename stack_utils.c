@@ -6,7 +6,7 @@
 /*   By: arakotot <arakotot@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 14:09:43 by arakotot          #+#    #+#             */
-/*   Updated: 2026/04/07 11:30:31 by arakotot         ###   ########.fr       */
+/*   Updated: 2026/04/28 09:24:06 by arakotot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_stack_size(t_node *stack)
 	int	size;
 
 	if (!stack)
-		return (-1);
+		return (0);
 	size = 0;
 	while (stack)
 	{
