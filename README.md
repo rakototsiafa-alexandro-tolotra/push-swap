@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 school program by herasoan.arakotot.*
+*This project has been created as part of the 42 school program by herasoan, arakotot.*
 
 ## Descriptions
 
@@ -99,6 +99,9 @@ The disorder metric quantifies how far stack `a` is from being perfectly sorted 
 > **Purpose:** This metric provides a quick, normalized measure of input chaos independent of stack size, useful for benchmarking and comparing algorithm efficiency across different initial orderings.
 
 ## Instructions
+
+
+
 
 ### Compilation
 
@@ -225,3 +228,35 @@ The `sort_adaptive` function acts as the central dispatcher:
 | `> 200` | Complex Sort | Binary Radix Sort (LSD) |
 
 > **Reasoning:** No single algorithm is optimal across all input sizes. Hardcoded logic and selection sort excel for tiny inputs due to low overhead. Chunking provides a middle-ground trade-off between locality and operation count. Radix sort dominates asymptotically for large inputs due to its linearithmic behavior and lack of comparison-based searching.
+
+## Contributors
+
+This section describes each member’s role in the duo and the files they implemented.
+
+- **herasoan (Leader)** — Benchmark, Core sorting algorithms (complex & adaptive) & operations layer:
+  - `main.c`
+  - `sort_complex.c`
+  - `sort_adaptive.c`
+  - `bench.c`
+  - `bench_utils.c`
+  - `disorder.c`
+  - `operations_rotate.c`
+  - `operations_rev_rotate.c`
+  - `operations_push.c`
+  - `operations_swap.c`
+
+- **arakotot** — Parsing, core sorting algorithms (simple & medium) & flags manager:
+  - `options.c`
+  - `parsing.c`
+  - `parsing_utils.c`
+  - `error_manager.c`
+  - `stack_init.c`
+  - `stack_utils.c`
+  - `sort_simple.c`
+  - `sort_simple_utils.c`
+  - `sort_medium.c`
+  - `sort_medium_utils.c`
+
+  
+
+
